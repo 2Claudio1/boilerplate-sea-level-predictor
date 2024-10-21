@@ -18,7 +18,16 @@ def draw_plot():
     plt.scatter(df[x_col], df[y_col])
 
 
-    # Create first line of best fit
+    ##### Create first line of best fit #####
+    # Generate a range of years from the minimum year in the dataset to 2050
+    first_pred_years = pd.Series(range(df[x_col].min(), 2051))
+    
+    # Calculate the slope and y-intercept for the first line of best fit, using the linregress function from scipy.stats. 
+    # This line will predict sea level rise until 2050
+    first_slope, first_intercept, first_r, first_p, first_se = linregress(df[x_col], df[y_col])
+    
+    # Plot the first line of best fit on the scatter plot. # m(slope)*x+b(intercept)
+    plt.plot(first_pred_years,  first_slope * first_pred_years + first_intercept, 'g-')
 
 
     # Create second line of best fit
