@@ -30,7 +30,17 @@ def draw_plot():
     plt.plot(first_pred_years,  first_slope * first_pred_years + first_intercept, 'g-')
 
 
-    # Create second line of best fit
+    ##### Create second line of best fit #####
+    # Filter the data to include only the years from 2000 onwards.
+    recent_sea_level_data = df[df[x_col] >= 2000]
+    
+    # Calculate the slope and y-intercept for the second line of best fit.
+    # This line will predict sea level rise until 2050 based on data from 2000 onward.
+    second_slope, second_intercept, second_r, second_p, second_se = linregress(recent_sea_level_data[x_col], recent_sea_level_data[y_col])
+    
+    # Plot the first line of best fit on the scatter plot.
+    second_pred_years = range(2000, 2051)
+    plt.plot(second_pred_years, second_slope * pd.Series(second_pred_years) + second_intercept, 'r--')
 
 
     # Add labels and title
